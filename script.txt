@@ -1,17 +1,19 @@
+document.addEventListener("DOMContentLoaded", function() {
+
 // Variables globales
 let input = document.getElementById("input"); // Elemento de entrada de texto
 let summary = document.getElementById("summary"); // Elemento de salida de resumen
 let labels = document.getElementById("labels"); // Elemento de salida de etiquetas
 let improvedSummary = document.getElementById("improved-summary"); // Elemento de salida de resumen mejorado
 let improvedLabels = document.getElementById("improved-labels"); // Elemento de salida de etiquetas mejoradas
-let record = document.getElementById("record"); // Botón de iniciar grabación
-let stop = document.getElementById("stop"); // Botón de detener grabación
+let recordBtn = document.getElementById("recordBtn"); // Botón de iniciar grabación
+let stopBtn = document.getElementById("stopBtn"); // Botón de detener grabación
 let timer = document.getElementById("timer"); // Elemento de tiempo transcurrido
-let generate = document.getElementById("generate"); // Botón de generar
-let improve = document.getElementById("improve"); // Botón de mejorar
+let generateBtn = document.getElementById("generateBtn"); // Botón de generar
+let improveBtn = document.getElementById("improveBtn"); // Botón de mejorar
 
 // Claves de acceso a las APIs
-let chatgptKey = "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"; // Clave de acceso a la API de ChatGPT
+let chatgptKey = "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"; // Clave de acceso a la API de ChatGPT
 let whisperKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YWRiZjNkNTAyN2IxY2JkNDE4NzNiMjRlNzlhNjE5ZTQxODhiYTVlM2M5ZmM3ZDM1N2NmNjNkOGYxYjg3YmEzZjBjZmMyMDJiOTM2NTdhOGJkMWQ0MmZlNWYwNWY3N2Q5YzExYjZkNjE2NzE2NDE0ZWM1YWU2ODVhNjE0MjQxMCIsInNjb3BlIjoiY29uZmlnIiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3BlZWNobHkuY29tLyIsImF1ZCI6Imh0dHBzOi8vYXBpLnNwZWVjaGx5LmNvbS8ifQ.EcziURlyqDVnoV2WdBd9SqEGhDT94Y8AlWkaqrlichM"; // Clave de acceso a la API de Whisper
 
 // URLs de los prompts de ChatGPT en español
@@ -26,15 +28,15 @@ let startTime; // Tiempo inicial de la grabación
 let interval; // Intervalo para actualizar el tiempo transcurrido
 
 // Función para iniciar la grabación
-function record() {
+function recordAudio() {
   // Crear un objeto MediaRecorder con el dispositivo de audio predeterminado
   navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
     recorder = new MediaRecorder(stream);
     recorder.start(); // Iniciar la grabación
 
     // Cuando se inicia la grabación, deshabilitar el botón de iniciar y habilitar el botón de detener
-    record.disabled = true;
-    stop.disabled = false;
+    recordBtn.disabled = true;
+    stopBtn.disabled = false;
 
     // Obtener el tiempo inicial y crear un intervalo para actualizar el tiempo transcurrido cada segundo
     startTime = Date.now();
@@ -79,15 +81,22 @@ function record() {
 }
 
 // Función para detener la grabación
-function stop() {
+function stopAudio() {
   if (recorder) { // Si hay un objeto MediaRecorder activo
     recorder.stop(); // Detener la grabación
 
     // Cuando se detiene la grabación, habilitar el botón de iniciar y deshabilitar el botón de detener
-    record.disabled = false;
-    stop.disabled = true;
+    recordBtn.disabled = false;
+    stopBtn.disabled = true;
   }
 }
+
+if (typeof recordAudio === 'function') {
+    // La función está definida
+    console.log("La función recordAudio() se está ejecutando.");
+  } else {
+    // La función no está definida
+  }
 
 // Función para actualizar el tiempo transcurrido
 function updateTimer() {
@@ -100,7 +109,7 @@ function updateTimer() {
 }
 
 // Función para generar el resumen y las etiquetas a partir de la entrada
-function generate() {
+function generateText() {
     let text = input.value; // Obtener el texto de la entrada
     if (text) { // Si el texto no está vacío
       // Crear un objeto con los parámetros para la solicitud al prompt de resumen
@@ -163,7 +172,7 @@ function generate() {
   }
   
   // Función para mejorar el resumen y las etiquetas a partir del resumen y las etiquetas generados
-  function improve() {
+  function improveText() {
     let summaryText = summary.textContent; // Obtener el texto del resumen generado
     let labelsText = labels.textContent; // Obtener el texto de las etiquetas generadas
   
@@ -228,3 +237,31 @@ Etiquetas mejoradas:`,
     alert("Por favor, genera primero el resumen y las etiquetas."); // Mostrar un mensaje de alerta
   }
 }
+
+// Función para limpiar los elementos de salida cuando se cambia el texto de la entrada
+function clearOutput() {
+    if (summary) {
+      summary.textContent = ""; // Limpiar el elemento de salida de resumen
+    }
+    if (labels) {
+      labels.textContent = ""; // Limpiar el elemento de salida de etiquetas
+    }
+    if (improvedSummary) {
+      improvedSummary.textContent = ""; // Limpiar el elemento de salida de resumen mejorado
+    }
+    if (improvedLabels) {
+      improvedLabels.textContent = ""; // Limpiar el elemento de salida de etiquetas mejoradas
+    }
+  }
+
+  // Agregar la función de limpiar los elementos de salida al evento de cambio del elemento de entrada
+input.addEventListener("change", clearOutput);
+
+recordBtn.addEventListener("click", recordAudio);
+stopBtn.addEventListener("click", stopAudio);
+// Agregar la función de generar el resumen y las etiquetas al evento de clic del botón de generar
+generateBtn.addEventListener("click", generateText);
+
+// Agregar la función de mejorar el resumen y las etiquetas al evento de clic del botón de mejorar
+improveBtn.addEventListener("click", improveText);
+});

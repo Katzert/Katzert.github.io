@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* Estilo general para los elementos div */
+    div {
+      border: 1px solid black;
+      width: 300px;
+      height: 100px;
+      margin: 10px;
+      padding: 10px;
+    }
+  
+    /* Contenedor para la primera fila */
+    .row-1 {
+      display: flex; /* Activa el modo flexbox */
+      flex-direction: row; /* Alinea los elementos en una fila */
+      justify-content: center; /* Centra los elementos horizontalmente */
+      align-items: center; /* Centra los elementos verticalmente */
+    }
+  
+    /* Contenedor para la segunda fila */
+    .row-2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <title>ChatGPT en español</title>
+</head>
+<body>
+  <h1>ChatGPT en español</h1>
+  <p>Esta es una página web gratuita para mostrar el funcionamiento de 5 prompts de ChatGPT en español.</p>
+  <!-- Aquí irán las ventanas y los botones -->
+  <script src="script.js"></script>
+</body>
+<div class="row-1">
+    <div id="P1" contenteditable="true">
+      <!-- Contenido de P1 -->
+    </div>
+    <div id="P2">
+      <!-- Contenido de P2 -->
+    </div>
+    <div id="P3">
+      <!-- Contenido de P3 -->
+    </div>
+  </div>
+  <button id="record" onclick="record()">Iniciar grabación</button>
+    <button id="stop" onclick="stop()" disabled>Detener grabación</button>
+    <span id="timer">00:00</span>
+  <div class="row-2">
+    <div id="P4">
+      <!-- Contenido de P4 -->
+    </div>
+    <div id="P5">
+      <!-- Contenido de P5 -->
+    </div>
+  </div>
+  <button id="generate" onclick="generate()">Generar</button>
+    <button id="improve" onclick="improve()">Mejorar</button>
+</html>

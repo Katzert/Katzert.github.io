@@ -6,8 +6,8 @@
     /* Estilo general para los elementos div */
     div {
       border: 1px solid black;
-      width: 300px;
-      height: 100px;
+      width: 1000px;
+      height: 500px;
       margin: 10px;
       padding: 10px;
     }
@@ -29,35 +29,42 @@
     }
   </style>
   <title>ChatGPT en español</title>
+  
+
 </head>
 <body>
   <h1>ChatGPT en español</h1>
   <p>Esta es una página web gratuita para mostrar el funcionamiento de 5 prompts de ChatGPT en español.</p>
   <!-- Aquí irán las ventanas y los botones -->
-  <script src="script.js"></script>
-</body>
-<div class="row-1">
-    <div id="P1">
-      <!-- Contenido de P1 -->
+    <div class="row-1">
+        <div id="P1">
+        <!-- Contenido de P1 -->
+        <input type="text" id="input">
+        
+        
+        </div>
+        <div id="P2">
+        <!-- Contenido de P2 -->
+        </div>
+        <div id="P3">
+        <!-- Contenido de P3 -->
+        </div>
+
     </div>
-    <div id="P2">
-      <!-- Contenido de P2 -->
-    </div>
-    <div id="P3">
-      <!-- Contenido de P3 -->
-    </div>
-  </div>
-  <button id="recordbtn" onclick="recordAudio()">Iniciar grabación</button>
-    <button id="stopbtn" onclick="stopAudio()" disabled>Detener grabación</button>
+    <button id="recordBtn" >Iniciar grabación</button>
+    <button id="stopBtn" disabled>Detener grabación</button>
     <span id="timer">00:00</span>
-  <div class="row-2">
-    <div id="P4">
-      <!-- Contenido de P4 -->
+    <div class="row-2">
+        <div id="P4">
+        <!-- Contenido de P4 -->
+        </div>
+        <div id="P5">
+        <!-- Contenido de P5 -->
+        </div>
+
     </div>
-    <div id="P5">
-      <!-- Contenido de P5 -->
-    </div>
-  </div>
-  <button id="generate" onclick="generatetxt()">Generar</button>
-    <button id="improve" onclick="improvetxt()">Mejorar</button>
+    <button id="generateBtn" onclick="generateText()">Generar</button>
+    <button id="improveBtn" onclick="improveText()">Mejorar</button>
+    <script src="script.js" defer></script>
+</body>    
 </html>
